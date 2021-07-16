@@ -1,4 +1,6 @@
-Feature :
+Breast Cancer Prediction
+
+Features :
  'mean radius' 'mean texture' 'mean perimeter' 'mean area'
  'mean smoothness' 'mean compactness' 'mean concavity'
  'mean concave points' 'mean symmetry' 'mean fractal dimension'
