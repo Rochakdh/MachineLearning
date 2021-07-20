@@ -1,11 +1,10 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import tensorflow
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, LeakyReLU, PReLU, ELU, Dropout
+from sklearn.metrics import confusion_matrix, accuracy_score
 
 # dataset
 dataset = pd.read_csv('Churn_Modelling.csv')
@@ -37,3 +36,16 @@ classifier.compile(optimizer='Adamax', loss='binary_crossentropy', metrics=['acc
 
 # Fitting the ANN to the Training set
 model_history = classifier.fit(x_train, y_train, validation_split=0.33, batch_size=10, epochs=100)
+
+y_pred = classifier.predict(x_test)
+y_pred = (y_pred > 0.5)
+cm = confusion_matrix(y_test, y_pred)
+score = accuracy_score(y_pred, y_test)
+
+plt.plot(model_history.history['loss'])
+plt.plot(model_history.history['val_loss'])
+plt.title('model loss')
+plt.ylabel('loss')
+plt.xlabel('epoch')
+plt.legend(['train', 'test'], loc='upper left')
+plt.show()
