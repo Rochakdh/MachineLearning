@@ -12,8 +12,8 @@ x = dataset.iloc[:, 3:13]  # independent features
 y = dataset.iloc[:, 13]  # dependent features
 
 # Create dummy variables
-geography = pd.get_dummies(x["Geography"], drop_first=True)
-gender = pd.get_dummies(x['Gender'], drop_first=True)
+geography = pd.get_dummies(x["Geography"], drop_first=True) #dropped to avoid dummy trap
+gender = pd.get_dummies(x["Gender"], drop_first=True)
 
 # Concatenate the Data Frames
 x = pd.concat([x, geography, gender], axis=1)
@@ -23,7 +23,7 @@ x = x.drop(['Geography', 'Gender'], axis=1)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 
-# Feature Scaling
+# # Feature Scaling
 sc = StandardScaler()
 x_train = sc.fit_transform(x_train)
 x_test = sc.transform(x_test)
@@ -41,6 +41,7 @@ y_pred = classifier.predict(x_test)
 y_pred = (y_pred > 0.5)
 cm = confusion_matrix(y_test, y_pred)
 score = accuracy_score(y_pred, y_test)
+print(score)
 
 plt.plot(model_history.history['loss'])
 plt.plot(model_history.history['val_loss'])
